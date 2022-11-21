@@ -10,7 +10,7 @@ function FormRegister(props) {
         e.preventDefault();
         fetch('http://127.0.0.1:8000/api/auth/login', {
             method: 'POST',
-            body: JSON.stringify({ ...user }),
+            body: JSON.stringify(user),
             headers: { 'Content-Type': 'application/json' },
         });
     }
