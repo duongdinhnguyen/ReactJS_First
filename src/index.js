@@ -1,67 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+function FormRegister(props) {
 
-function Form (props) {
-    function handleClickButton (e) {
-        alert(e.target.value);
+    const [user, setUser] = useState("");
+
+    const handleSubmitForm = e => {
+        e.preventDefault();
+        fetch('http://127.0.0.1:8000/api/auth/login', {
+            method: 'POST',
+            body: JSON.stringify({ ...user }),
+            headers: { 'Content-Type': 'application/json' },
+        });
     }
+
     return (
-        <button value="1" onClick={handleClickButton}>
-            {props.nameButton}
-        </button>
+        <form onSubmit={handleSubmitForm}>
+            <div>
+                <label>Tên đăng nhập</label>
+                <input id="name" name="name" onChange={e =>setUser({...user, name : e.target.value})}></input>
+            </div>
+            <div>
+                <label>Mật khẩu</label>
+                <input id="password" name="password" onChange={e =>setUser({...user, password : e.target.value})}></input>
+            </div>
+            <div>
+                <label>Email</label>
+                <input id="email" name="email" onChange={e =>setUser({...user, email : e.target.value})}></input>
+            </div>
+            <div>
+                <button>Submit</button>
+            </div>
+        </form>
     );
 }
-const form = <Form nameButton="Button nè"/>
+
+const formRegister = <FormRegister />
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
-class Button extends React.Component {
-    state = {
-        name : "Button con nè"
-    }
-    handleClickButton() {
-        this.setState({name : "Không phải button đâu"});
-    }
-
-    styleButton = {
-        display : "flex",
-    }
-
-    render() {
-        return (
-            <div style={this.styleButton}>
-                <button value="12345" onClick={this.handleClickButton.bind(this)}>
-                    {this.props.nameButton}
-                </button>
-                {/* <ButtonChild name={this.state.name}/> */}
-            </div>
-        );
-    };
-}
-
-class ButtonChild extends Button {
-    handleClickButtonChild(e) {
-        alert(1234556);
-    }
-
-    render() {
-        return (
-            <button onClick={this.handleClickButtonChild}>
-                {this.props.name}
-            </button>
-        );
-    }
-}
-
-const button = <Button nameButton="Button đấy" />
 root.render(
-  button
+    formRegister
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
