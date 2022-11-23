@@ -12,9 +12,15 @@ function FormRegister(props) {
             method: 'POST',
             body: JSON.stringify(user),
             headers: { 'Content-Type': 'application/json' },
+        })
+        .then(function(res) {
+            return res.json();
+        })
+        .then(function(json) {
+            localStorage.setItem("token", json.access_token);
         });
     }
-
+    
     return (
         <form onSubmit={handleSubmitForm}>
             <div>
