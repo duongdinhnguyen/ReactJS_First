@@ -1,37 +1,12 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
+import Content from "./Content";
 
 function App() {
+  const [check, setCheck] = useState(false)
 
-  const [todoList, setTodoList] = useState(() => JSON.parse(localStorage.getItem('todo')) || [])
-  const [todo, setTodo] = useState('')
-
-  const handleAddTodo = () => {
-    setTodoList((preTodo) => {
-      const newJob = [...preTodo, todo]
-      localStorage.setItem('todo', JSON.stringify(newJob))
-      return newJob
-    });
-    setTodo('')
-  }
-
-  const changeInput = (e) => {
-    setTodo(e.target.value)
-  }
-  return (
-    <div style={{padding : 32}}>
-      <input onChange={changeInput} value={todo}/>
-      <button onClick={handleAddTodo}>Add</button>
-      <ul>
-        {
-          todoList.map((item, index) => (
-            <li key={index}>
-                {item}
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  );
+  return ( 
+    <Content></Content>
+  )
 }
 
 export default App;
