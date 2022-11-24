@@ -2,16 +2,22 @@ import React, {useState} from "react";
 
 function App() {
 
-  const [todoList, setTodoList] = useState([]);
-  const [todo, setTodo] = useState('');
+  const storageLocal = JSON.parse(localStorage.getItem('todo')) || []; 
+  const [todoList, setTodoList] = useState(storageLocal)
+  const [todo, setTodo] = useState('')
 
   const handleAddTodo = () => {
-    setTodoList((preTodo) => [...preTodo, todo]);
-    setTodo('');
+    setTodoList((preTodo) => {
+      const newJob = [...preTodo, todo]
+      localStorage.setItem('todo', JSON.stringify(newJob))
+      return newJob
+    });
+    setTodo('')
+    
   }
 
   const changeInput = (e) => {
-    setTodo(e.target.value);
+    setTodo(e.target.value)
   }
   return (
     <div style={{padding : 32}}>
