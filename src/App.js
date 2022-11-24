@@ -1,24 +1,25 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+const gifts = [
+  'Gift 1',
+  'Gift 2',
+  'Gift 3',
+];
 
 function App() {
+
+  const [gift, setGift] = useState();
+
+  const onClickGift = () => {
+    const index = Math.floor(Math.random() * gifts.length);
+    setGift(gifts[index]);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div>
+        <h1>{gift || "Chưa có phần thưởng"}</h1>
+        <button onClick={onClickGift}>Rút</button>
+      </div>
   );
 }
 
