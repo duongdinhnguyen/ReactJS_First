@@ -1,16 +1,29 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect} from "react"
 
-const array= ['users', 'posts', 'comments'];
+const array= ['users', 'posts', 'comments']
 
 function Content() {
     const [data, setData] = useState([])
     const [type, setType] = useState('users')
+    const [typeScroll, setTypeScroll] = useState(false)
 
     useEffect(() => {
         fetch('https://jsonplaceholder.typicode.com/' + type)
         .then(data => data.json())
         .then(json => setData(json))
     },[type])
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setTypeScroll(window.scrollY > 200)
+        }
+
+        window.addEventListener('scroll', handleScroll)
+
+        return () => (
+            window.removeEventListener('scroll', handleScroll)
+        )
+    }, [])
 
     return (
         <div>
@@ -34,6 +47,19 @@ function Content() {
                     ))
                 }
             </ul>
+            {
+                typeScroll && (
+                    <button
+                        style={{
+                            position: "fixed",
+                            bottom: 20,
+                            right: 20
+                        }}
+                    >
+                    Goto top
+                    </button>
+                )
+            }
         </div>
     );
 }
