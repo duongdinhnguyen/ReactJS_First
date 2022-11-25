@@ -1,20 +1,19 @@
-import { clear } from "@testing-library/user-event/dist/clear";
 import React, {useState, useEffect} from "react"
 
-
 function Content() {
-    const [countdown, setCountDown] = useState(180);
 
-  useEffect(() => {
-    const countdown = setInterval(() => setCountDown((preCountDown) => preCountDown - 1), 1000)
-    
-    return () => clearInterval(countdown)
+    const [img, setImg] = useState()
 
-  }, [])
+    useEffect(() => {
+        return () => img && URL.revokeObjectURL(img)
+    }, [img]) 
+
+    const handleChange = (e) => setImg(URL.createObjectURL(e.target.files[0]))
 
   return ( 
     <div>
-      <h1>{countdown}</h1>
+      <input type="file" onChange={handleChange}/>
+      <img src={img}/>
     </div>
   )
 }
