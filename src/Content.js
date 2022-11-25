@@ -1,14 +1,40 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 
-function Content(props) {
+const array= ['users', 'posts', 'comments'];
+
+function Content() {
+    const [data, setData] = useState([])
+    const [type, setType] = useState('users')
+
+    useEffect(() => {
+        fetch('https://jsonplaceholder.typicode.com/' + type)
+        .then(data => data.json())
+        .then(json => setData(json))
+    },[type])
+
     return (
-        <ul>
+        <div>
             {
-                props.users.map((item, index) => (
-                    <li key={index}>{item.name}</li>
+                array.map((item, index) => (
+                    <button 
+                        key={index}
+                        style={type === item ? {
+                            backgroundColor: "#ccc"
+                        } : {}}
+                        onClick={() => setType(item)}
+                    >
+                        {item}
+                    </button>
                 ))
             }
-        </ul>
+            <ul>
+                {
+                    data.map((item, index) => (
+                        <li key={index}>{item.body || item.name}</li>
+                    ))
+                }
+            </ul>
+        </div>
     );
 }
 
