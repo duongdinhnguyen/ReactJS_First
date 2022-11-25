@@ -1,8 +1,14 @@
 import React, {useState} from "react";
 
-function Content() {
+function Content(props) {
     return (
-        <h1>Chao xìn</h1>
+        <ul>
+            {
+                props.users.map((item, index) => (
+                    <li key={index}>{item.name}</li>
+                ))
+            }
+        </ul>
     );
 }
 
