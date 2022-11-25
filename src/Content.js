@@ -1,67 +1,22 @@
+import { clear } from "@testing-library/user-event/dist/clear";
 import React, {useState, useEffect} from "react"
 
-const array= ['users', 'posts', 'comments']
 
 function Content() {
-    const [data, setData] = useState([])
-    const [type, setType] = useState('users')
-    const [typeScroll, setTypeScroll] = useState(false)
+    const [countdown, setCountDown] = useState(180);
 
-    useEffect(() => {
-        fetch('https://jsonplaceholder.typicode.com/' + type)
-        .then(data => data.json())
-        .then(json => setData(json))
-    },[type])
+  useEffect(() => {
+    const countdown = setInterval(() => setCountDown((preCountDown) => preCountDown - 1), 1000)
+    
+    return () => clearInterval(countdown)
 
-    useEffect(() => {
-        const handleScroll = () => {
-            setTypeScroll(window.scrollY > 200)
-        }
+  }, [])
 
-        window.addEventListener('scroll', handleScroll)
-
-        return () => (
-            window.removeEventListener('scroll', handleScroll)
-        )
-    }, [])
-
-    return (
-        <div>
-            {
-                array.map((item, index) => (
-                    <button 
-                        key={index}
-                        style={type === item ? {
-                            backgroundColor: "#ccc"
-                        } : {}}
-                        onClick={() => setType(item)}
-                    >
-                        {item}
-                    </button>
-                ))
-            }
-            <ul>
-                {
-                    data.map((item, index) => (
-                        <li key={index}>{item.body || item.name}</li>
-                    ))
-                }
-            </ul>
-            {
-                typeScroll && (
-                    <button
-                        style={{
-                            position: "fixed",
-                            bottom: 20,
-                            right: 20
-                        }}
-                    >
-                    Goto top
-                    </button>
-                )
-            }
-        </div>
-    );
+  return ( 
+    <div>
+      <h1>{countdown}</h1>
+    </div>
+  )
 }
 
 export default Content;
