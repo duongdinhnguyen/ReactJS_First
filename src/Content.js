@@ -1,19 +1,24 @@
-import React, {useState, useEffect} from "react"
+import React, {useState, useEffect, useRef} from "react"
 
 function Content() {
+    const [time, setTime] = useState(180)
+    const ref = useRef()
 
-    const [img, setImg] = useState()
+    const handleStart = () => {
+        ref.current = setInterval(() => {
+            setTime((preTime) => preTime - 1)
+        }, 1000)
+    }
 
-    useEffect(() => {
-        return () => img && URL.revokeObjectURL(img)
-    }, [img]) 
-
-    const handleChange = (e) => setImg(URL.createObjectURL(e.target.files[0]))
+    const handleEnd = () => {
+        clearInterval(ref.current)
+    }
 
   return ( 
     <div>
-      <input type="file" onChange={handleChange}/>
-      <img src={img}/>
+      <h1>{time}</h1>
+      <button onClick={handleStart}>Start</button>
+      <button onClick={handleEnd}>End</button>
     </div>
   )
 }
