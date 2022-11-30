@@ -1,9 +1,17 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import Content from "./Content";
 
 function App() {
+  const [data, setData] = useState(0)
+
   return (
-    <h1>Hello World</h1>
-  );
+    <>
+      <Content data={data} />
+      <label>{data}</label>
+      <button onClick={() => setData((pre) => pre + 1)}>Tăng data</button>
+    </>
+    
+  )
 }
 
 export default App;
