@@ -1,12 +1,22 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 
 function App() {
-  const [product, setProduct] = useState()
+  const [product, setProduct] = useState({
+    name : '',
+    price: ''
+  })
   const [productList, setProductList] = useState([])
   // const [total, setTotal] = useState(0) // Dùng với state để tính tổng
 
+  const focusRef = useRef()
+
   const handleSubmit = () => {
     setProductList((pre) => [...pre, product])
+    setProduct({
+      name : '',
+      price: ''
+    })
+    focusRef.current.focus()
   }
   // Dùng với useMemo
   const total = useMemo(() => {
@@ -30,11 +40,14 @@ function App() {
     <div style={{ padding: "60px" }}>
       <div>
         <input
+          ref={focusRef}
+          value={product.name}
           onChange={(e) => setProduct({...product, name: e.target.value})}
           placeholder="Nhập tên sản phẩm">
         </input>
         <br></br>
         <input
+          value={product.price}
           onChange={(e) => setProduct({...product, price: parseInt(e.target.value)})}
           placeholder="Nhập giá sản phẩm">
         </input>
