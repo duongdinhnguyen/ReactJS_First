@@ -1,8 +1,13 @@
-import React, {useState} from "react";
+import Content from './Content'
+import './App.css'
 
-function App() {
+const App = () => {
   return (
-    <h1>Hello World</h1>
+      <div>
+        {/* <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>Change theme</button> */}
+        <button>Change theme</button>
+        <Content/>
+      </div>
   );
 }
 
