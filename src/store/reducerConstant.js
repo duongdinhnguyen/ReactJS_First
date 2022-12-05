@@ -1,0 +1,5 @@
+export const SET_TODO = 'SET'
+export const CREATE_TODO = 'CREATE'
+export const CHANGE_TODO = 'CHANGE'
+export const UPDATE_TODO = 'UPDATE'
+export const DELETE_TODO = 'DELETE'
