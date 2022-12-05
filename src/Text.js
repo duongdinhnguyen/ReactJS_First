@@ -2,10 +2,10 @@ import { ThemeContext } from "./ThemeContext"
 import { useContext } from "react"
 
 const Text = () => {
-    const theme = useContext(ThemeContext)
+    const data = useContext(ThemeContext)
 
     return (
-        <p className={theme}>Using hook useContext</p>
+        <p className={data.theme}>Using hook useContext</p>
     )
 }
 

@@ -1,13 +1,15 @@
 import Content from './Content'
 import './App.css'
+import { useContext } from 'react';
+import { ThemeContext } from './ThemeContext';
 
 const App = () => {
+  const data = useContext(ThemeContext)
   return (
-      <div>
-        {/* <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>Change theme</button> */}
-        <button>Change theme</button>
-        <Content/>
-      </div>
+    <div>
+      <button onClick={data.handleClick}>Change theme</button>
+      <Content/>
+    </div>
   );
 }
 

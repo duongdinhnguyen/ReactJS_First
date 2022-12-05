@@ -1,15 +1,13 @@
 import React, { useState, createContext } from "react";
 
 const ThemeContext = createContext()
-const ThemeProvider = ({content}) => {
+const ThemeProvider = ({children}) => {
     const [theme, setTheme] = useState('dark')
-    console.log(ThemeContext)
-
+    const handleClick = () => setTheme(theme === 'dark' ? 'light' : 'dark')
     return (
-        <ThemeContext.Provider value={theme}>
-            {content}
+        <ThemeContext.Provider value={{ theme, handleClick }}>
+            { children }
         </ThemeContext.Provider>
     )
 }
-
 export {ThemeContext, ThemeProvider}
