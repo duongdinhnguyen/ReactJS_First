@@ -1,8 +1,23 @@
-import React, {useState} from "react";
+import React, {useRef} from "react";
+import Video from "./Video";
 
 function App() {
+  const videoRef = useRef()
+
+  const playVideo = () => {
+    videoRef.current.play()
+  }
+
+  const pauseVideo = () => {
+    videoRef.current.pause()
+  }
+
   return (
-    <h1>Hello World</h1>
+    <>
+      <Video ref={videoRef}/>
+      <button onClick={playVideo}>Play</button>
+      <button onClick={pauseVideo}>Pause</button>
+    </>
   );
 }
 
