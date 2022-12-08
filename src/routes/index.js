@@ -1,0 +1,1 @@
+export {default as Router, publicRoutes} from './route'
