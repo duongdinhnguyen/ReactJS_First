@@ -5,7 +5,7 @@ import '../App.css'
 const Navbar = () => {
 
     const logOut = () => {
-        localStorage.removeItem('token')
+        localStorage.removeItem('token_login')
         window.location = 'http://localhost:3000/login'
     }
     return (

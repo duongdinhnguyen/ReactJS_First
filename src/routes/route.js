@@ -17,20 +17,28 @@ const privateRoutes = [
 ]
 
 const Router = () => {
+    const checkStatusAuth = localStorage.getItem('token_login') ? true : false
 
     return (
         <Routes>
             {
-                publicRoutes.map((route, index) => {
-                    const Layout = route.layout || DefaultLayout
 
+                publicRoutes.map((route, index) => {
+                    // Check token authentication JWT
+                    const Layout = checkStatusAuth ? (route.layout ? route.layout : DefaultLayout) : CommonLayout
+                    let Page = route.component 
+                    if (!checkStatusAuth) {
+                        const common = ['Login', 'Register']
+                        Page = common.includes(route.name) ? route.component : Login
+                    }
+                    
                     return (
                         <Route 
                             key={index} 
                             path={route.path} 
                             element={
                                 <Layout>
-                                    <route.component/>
+                                    <Page/>
                                 </Layout>
                             }
                         />
